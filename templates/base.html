@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Blessing Akanni – self-taught programmer, aspiring software engineer, and cybersecurity learner." />
+  <meta name="theme-color" content="#081b29" />
+  <title>{% block title %}Blessing Akanni | Portfolio{% endblock %}</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+  <!-- ── Scroll progress bar ───────────────────────────────────────────── -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ── Header / Nav ──────────────────────────────────────────────────── -->
+  <header class="header" id="header">
+    <a href="#home" class="logo">
+      Blessing<span>.</span>
+    </a>
+
+    <nav class="navbar" id="navbar" aria-label="Main navigation">
+      <a href="#home"     class="nav-link active">Home</a>
+      <a href="#about"    class="nav-link">About</a>
+      <a href="#services" class="nav-link">What I Do</a>
+      <a href="#skills"   class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#journey"  class="nav-link">Journey</a>
+      <a href="#contact"  class="nav-link">Contact</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navbar">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ── Mobile drawer overlay ─────────────────────────────────────────── -->
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+
+  <!-- ── Page content ──────────────────────────────────────────────────── -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-copy">
+        &copy; {{ current_year }} Blessing Akanni. Built with Flask &amp; ❤️
+      </p>
+
+      {% if security_note is defined %}
+      <details class="security-note">
+        <summary>How this site is secured</summary>
+        <ul>
+          {% for item in security_note %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </details>
+      {% endif %}
+    </div>
+
+    <a href="#home" class="back-to-top" aria-label="Back to top">
+      <i class="bx bx-up-arrow-alt" aria-hidden="true"></i>
+    </a>
+  </footer>
+
+  <!-- ── Site JS ───────────────────────────────────────────────────────── -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  {% block scripts_extra %}{% endblock %}
+</body>
+</html>

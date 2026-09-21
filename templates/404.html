@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 – Page Not Found | Blessing Akanni</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="page-404">
+
+  <div class="error-container">
+    <div class="error-code" aria-hidden="true">404</div>
+    <div class="terminal-card error-terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">bash — blessing@kali</span>
+      </div>
+      <div class="terminal-body">
+        <p><span class="prompt">$</span> find / -name "this-page"</p>
+        <p class="t-error">find: 'this-page': No such file or directory</p>
+        <p><span class="prompt">$</span> echo "Page not found"</p>
+        <p>Page not found</p>
+        <p><span class="prompt">$</span> <span class="cursor">|</span></p>
+      </div>
+    </div>
+    <h1>Oops — nothing here</h1>
+    <p>The page you're looking for doesn't exist or has been moved.</p>
+    <a href="{{ url_for('index') }}" class="btn">
+      <i class="bx bx-home" aria-hidden="true"></i> Back to Home
+    </a>
+  </div>
+
+  <footer class="footer" style="position:fixed;bottom:0;width:100%;text-align:center;">
+    <p class="footer-copy">&copy; {{ current_year }} Blessing Akanni</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}Blessing Akanni | Programmer &amp; Cybersecurity Learner{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §1  HOME
+═══════════════════════════════════════════════════════════════ -->
+<section class="home" id="home">
+  <!-- Canvas background (particles / code-rain) -->
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+  <div class="home-content reveal">
+    <h3>Hello, It's Me</h3>
+    <h1 class="glitch-name" data-text="{{ owner.name }}">{{ owner.name }}</h1>
+    <h3>
+      And I'm a
+      <span class="typing-text" id="typing-text" aria-live="polite"></span>
+      <span class="cursor" aria-hidden="true">|</span>
+    </h3>
+
+    <p>{{ owner.tagline }}</p>
+
+    <!-- Social icons -->
+    <div class="social-icons">
+      {% for s in socials %}
+      <a href="{{ s.url }}" aria-label="{{ s.label }}" target="_blank" rel="noopener noreferrer">
+        <i class="{{ s.icon }}" aria-hidden="true"></i>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="btn-group">
+      <a href="#contact" class="btn">Hire Me</a>
+      <a href="#contact" class="btn btn-outline">Let's Talk</a>
+    </div>
+  </div>
+
+  <div class="home-img reveal reveal-right">
+    <img
+      src="{{ url_for('static', filename='img/pic.png') }}"
+      alt="Portrait of Blessing Akanni"
+      loading="eager"
+    />
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §2  ABOUT
+═══════════════════════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="about-img reveal">
+    <div class="ring-wrapper" aria-hidden="true">
+      <svg class="spinning-ring" viewBox="0 0 220 220">
+        <circle cx="110" cy="110" r="100" />
+      </svg>
+    </div>
+    <img
+      src="{{ url_for('static', filename='img/pic.png') }}"
+      alt="Avatar of Blessing Akanni"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="about-content reveal reveal-right">
+    <h2 class="section-title">About <span>Me</span></h2>
+
+    <!-- Decorative terminal card -->
+    <div class="terminal-card" aria-label="Terminal output – decorative">
+      <div class="terminal-bar" aria-hidden="true">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">bash — blessing@kali</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line" id="terminal-output" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <p class="about-bio">{{ owner.bio }}</p>
+
+    <!-- Animated counters -->
+    <div class="counters">
+      {% for c in counters %}
+      <div class="counter-item">
+        <span class="counter-value" data-target="{{ c.value }}" data-suffix="{{ c.suffix }}">0</span>
+        <span class="counter-label">{{ c.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §3  WHAT I DO
+═══════════════════════════════════════════════════════════════ -->
+<section class="services" id="services">
+  <h2 class="section-title reveal">What I <span>Do</span></h2>
+
+  <div class="services-grid">
+    {% for svc in services %}
+    <article class="service-card reveal" style="--delay: {{ loop.index0 * 100 }}ms">
+      <i class="{{ svc.icon }}" aria-hidden="true"></i>
+      <h3>{{ svc.title }}</h3>
+      <p>{{ svc.desc }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §4  SKILLS
+═══════════════════════════════════════════════════════════════ -->
+<section class="skills" id="skills">
+  <h2 class="section-title reveal">My <span>Skills</span></h2>
+
+  <div class="skills-grid">
+    {% for skill in skills %}
+    <div class="skill-item reveal" style="--delay: {{ loop.index0 * 60 }}ms">
+      <div class="skill-header">
+        <span class="skill-name">{{ skill.name }}</span>
+        <span class="skill-pct">{{ skill.percent }}%</span>
+      </div>
+      <div class="skill-bar" role="progressbar"
+           aria-valuenow="{{ skill.percent }}"
+           aria-valuemin="0" aria-valuemax="100"
+           aria-label="{{ skill.name }} proficiency {{ skill.percent }}%">
+        <div class="skill-fill" data-width="{{ skill.percent }}"></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="learning-section reveal">
+    <h3>Currently Learning</h3>
+    <div class="chip-group">
+      {% for item in learning %}
+      <span class="chip">
+        <i class="bx bx-book-open" aria-hidden="true"></i> {{ item }}
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §5  PROJECTS
+═══════════════════════════════════════════════════════════════ -->
+<section class="projects" id="projects">
+  <h2 class="section-title reveal">My <span>Projects</span></h2>
+
+  <div class="projects-grid">
+    {% for proj in projects %}
+    <article class="project-card reveal tilt-card" style="--delay: {{ loop.index0 * 120 }}ms">
+      <div class="project-img">
+        <img
+          src="{{ url_for('static', filename='img/' + proj.img) }}"
+          alt="{{ proj.title }} screenshot"
+          loading="lazy"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22220%22><rect width=%22400%22 height=%22220%22 fill=%22%23112e42%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2300abf0%22 font-size=%2218%22 font-family=%22monospace%22>[ project ]</text></svg>'"
+        />
+      </div>
+      <div class="project-body">
+        <h3>{{ proj.title }}</h3>
+        <p>{{ proj.desc }}</p>
+        <div class="tech-chips">
+          {% for tech in proj.tech %}
+          <span class="chip">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        <div class="project-links">
+          <a href="{{ proj.live }}" class="btn btn-sm" target="_blank" rel="noopener noreferrer">
+            <i class="bx bx-link-external" aria-hidden="true"></i> Live
+          </a>
+          <a href="{{ proj.code }}" class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer">
+            <i class="bx bxl-github" aria-hidden="true"></i> Code
+          </a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §6  MY JOURNEY
+═══════════════════════════════════════════════════════════════ -->
+<section class="journey" id="journey">
+  <h2 class="section-title reveal">My <span>Journey</span></h2>
+
+  <ol class="timeline" aria-label="My Journey timeline">
+    {% for item in timeline %}
+    <li class="timeline-item reveal" style="--delay: {{ loop.index0 * 100 }}ms">
+      <div class="timeline-dot" aria-hidden="true"></div>
+      <div class="timeline-content">
+        <span class="timeline-year">{{ item.year }}</span>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.desc }}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §7  CONTACT
+═══════════════════════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <h2 class="section-title reveal">Contact <span>Me</span></h2>
+
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <h3>Get In Touch</h3>
+      <p>Have a project idea, a question about security, or just want to say hello?
+         Drop a message and I'll get back to you.</p>
+      <ul class="contact-details">
+        <li>
+          <i class="bx bx-envelope" aria-hidden="true"></i>
+          <span>{{ owner.email }}</span>
+        </li>
+        <li>
+          <i class="bx bx-map" aria-hidden="true"></i>
+          <span>{{ owner.location }}</span>
+        </li>
+      </ul>
+      <div class="contact-socials">
+        {% for s in socials %}
+        <a href="{{ s.url }}" aria-label="{{ s.label }}" target="_blank" rel="noopener noreferrer">
+          <i class="{{ s.icon }}" aria-hidden="true"></i>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <form class="contact-form reveal reveal-right"
+          id="contact-form"
+          action="/contact"
+          method="POST"
+          novalidate
+          aria-label="Contact form">
+
+      <!-- CSRF token (hidden) -->
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+
+      <!-- Honeypot (hidden from real users, filled by bots) -->
+      <div aria-hidden="true" style="display:none;">
+        <label for="website">Leave this blank</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="full_name">Full Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="full_name" name="full_name"
+                 placeholder="Your full name"
+                 maxlength="120" required
+                 autocomplete="name" />
+          <span class="field-error" id="err-full_name" role="alert"></span>
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email Address <span aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email"
+                 placeholder="your@email.com"
+                 maxlength="254" required
+                 autocomplete="email" />
+          <span class="field-error" id="err-email" role="alert"></span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="subject">Subject <span aria-hidden="true">*</span></label>
+        <input type="text" id="subject" name="subject"
+               placeholder="What's this about?"
+               maxlength="200" required />
+        <span class="field-error" id="err-subject" role="alert"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="message">Message <span aria-hidden="true">*</span></label>
+        <textarea id="message" name="message"
+                  placeholder="Write your message here…"
+                  rows="6" maxlength="2000" required></textarea>
+        <span class="field-error" id="err-message" role="alert"></span>
+      </div>
+
+      <button type="submit" class="btn" id="submit-btn">
+        Send Message <i class="bx bx-send" aria-hidden="true"></i>
+      </button>
+    </form>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</section>
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script>
+  // Inject roles array from Python → JS
+  window.ROLES = {{ roles | tojson }};
+</script>
+{% endblock %}
